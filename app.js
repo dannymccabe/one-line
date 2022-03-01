@@ -1,15 +1,12 @@
-const http = require('http')
 
-const hostname = '127.0.0.1'
-const port = 3000
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/plain')
-  res.end('Hello World\n')
-})
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`)
-})
-console.log("Hello World!");
+// register a listener
+emitter.on('messageLogged', function(){
+    console.log('Listener called')
+});
+
+// raised event
+emitter.emit('messageLogged');
